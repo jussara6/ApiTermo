@@ -15,9 +15,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        'https://termorest.conradosal.com',
-    ],
+    'allowed_origins' => ['*'],
 
     /*
      * Para testes locais, adicione temporariamente '*' ou 'http://localhost'
