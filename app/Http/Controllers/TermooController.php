@@ -44,15 +44,14 @@ class TermooController extends Controller
      * POST /api/validar-tentativa
      * Valida uma tentativa do jogador e retorna o resultado letra a letra
      */
-    public function validarTentativa(Request $request): JsonResponse
+    public function validarTentativa(Request $request, string $idJogo): JsonResponse
     {
-        $idJogo  = $request->input('idJogo');
         $palavra = $request->input('palavra');
 
         // Validação básica dos campos obrigatórios
-        if (empty($idJogo) || empty($palavra)) {
+      if (empty($palavra)) {
             return response()->json([
-                'erro' => 'Os campos idJogo e palavra são obrigatórios.',
+                'erro' => 'O campo palavra é obrigatório.',
             ], 400);
         }
 
