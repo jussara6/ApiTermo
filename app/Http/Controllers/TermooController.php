@@ -41,17 +41,28 @@ class TermooController extends Controller
     }
 
     /**
-     * POST /api/validar-tentativa
+     * POST /api/jogos/{idJogo}/tentativas  (padrão REST — front-end do professor)
+     * idJogo vem na URL; palavra vem no body JSON.
+     */
+    public function validarTentativaPorRota(Request $request, string $idJogo): JsonResponse
+    {
+        $request->merge(['idJogo' => $idJogo]);
+        return $this->validarTentativa($request);
+    }
+
+    /**
+     * POST /api/validar-tentativa  (rota legada — mantida para compatibilidade)
      * Valida uma tentativa do jogador e retorna o resultado letra a letra
      */
-    public function validarTentativa(Request $request, string $idJogo): JsonResponse
+    public function validarTentativa(Request $request): JsonResponse
     {
+        $idJogo  = $request->input('idJogo');
         $palavra = $request->input('palavra');
 
         // Validação básica dos campos obrigatórios
-      if (empty($palavra)) {
+        if (empty($idJogo) || empty($palavra)) {
             return response()->json([
-                'erro' => 'O campo palavra é obrigatório.',
+                'erro' => 'Os campos idJogo e palavra são obrigatórios.',
             ], 400);
         }
 
